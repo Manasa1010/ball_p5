@@ -1,28 +1,32 @@
 var ball1,ball2,ball3,ball4,ball5;
 var player;
 var bullet;
-var score = 100;
+var score = 500;
+var edge1,edge2,edge3,edge4;
 
 
 function setup() {
   createCanvas(500,500);
   player=createSprite(200, 200, 30, 30);
- ball1=createSprite(0,0,20,20);
+ ball1=createSprite(20,20,20,20);
  ball1.velocityY=3
- ball1.velocityX=4
- ball2=createSprite(100,500,20,20);
+ ball1.velocityX=3
+ ball2=createSprite(100,480,20,20);
  ball2.velocityY=-3
  ball2.velocityX=3
- ball3=createSprite(500,500,20,20);
+ ball3=createSprite(470,480,20,20);
  ball3.velocityY=-3
  ball3.velocityX=-3
- ball4=createSprite(500,0,20,20);
+ ball4=createSprite(470,20,20,20);
  ball4.velocityY=3
  ball4.velocityX=-3
  ball5=createSprite(150,150,20,20);
  ball5.velocityY=3
  ball5.velocityX=3
-  
+ edge1=createSprite(10,10,10,1000);
+ edge2=createSprite(490,10,15,1000);
+ edge3=createSprite(10,490,1000,15); 
+ edge4=createSprite(10,10,1000,15);
 }
 
 function draw() {
@@ -47,34 +51,37 @@ function draw() {
     player.x=500;
     player.velocityX=0
   }
-  bounceOff(ball1,ball2);
-  bounceOff(ball3,ball5);
-  bounceOff(ball4,ball2);
-  if(isTouching(ball1,player||ball2,player||ball3,player||ball4,player||ball5,player)){
-    score=score-20;
+ 
+  ball1.bounceOff(edge1)
+  ball1.bounceOff(edge2)
+  ball1.bounceOff(edge3)
+  ball1.bounceOff(edge4);
+
+  ball2.bounceOff(edge1)
+  ball2.bounceOff(edge2)
+  ball2.bounceOff(edge3)
+  ball2.bounceOff(edge4);
+
+  ball3.bounceOff(edge1)
+  ball3.bounceOff(edge2)
+  ball3.bounceOff(edge3)
+  ball3.bounceOff(edge4);
+
+  ball4.bounceOff(edge1)
+  ball4.bounceOff(edge2)
+  ball4.bounceOff(edge3)
+  ball4.bounceOff(edge4);
+
+  ball5.bounceOff(edge1)
+  ball5.bounceOff(edge2)
+  ball5.bounceOff(edge3)
+  ball5.bounceOff(edge4);
+
+  if(isTouching(ball1,player)||isTouching(ball2,player)||isTouching(ball3,player)||isTouching(ball4,player)||isTouching(ball5,player)){
+    score=score-1;
   }
-  if(isTouching(bullet,ball1||bullet,ball2||bullet,ball3||bullet,ball4||bullet,ball5)){
-    score=score+20;
-  }
-  if(ball1>500||ball1<0){
-    ball1.x=200;
-    ball1.y=50;
-  }
-  if(ball2>500||ball2<0){
-    ball2.x=400;
-    ball2.y=400;
-  }
-  if(ball3>500||ball3<0){
-    ball3.x=500;
-    ball3.y=500;
-  }
-  if(ball4>500||ball4<0){
-    ball4.x=0;
-    ball4.y=200;
-  }
-  if(ball1>500||ball1<0){
-    ball1.x=300;
-    ball1.y=90;
+  if(isTouching(ball2,ball1)||isTouching(ball3,ball2)||isTouching(ball4,ball3)||isTouching(ball5,ball4)||isTouching(bullet,ball5)){
+    score=score+1;
   }
   
 
